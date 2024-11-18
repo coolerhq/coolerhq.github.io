@@ -601,6 +601,27 @@ function createBadgeHTML(userId, percentage) {
     badgeImage = "https://m4nute.github.io/widget-cooler/assets/50.png";
   } else if (percentage >= 25) {
     badgeImage = "https://m4nute.github.io/widget-cooler/assets/25.png";
+  } else if (percentage === 0) {
+    return `
+      <div class="widget-content" style="background-color: #fff;">
+        <div id="main-tab" style="display: flex; justify-content: center; align-items: center;">
+          <h3 style="margin: 0; margin-top: .15rem; margin-bottom: .15rem; font-weight: 600; font-size: 1rem;">${userId}</h3>
+        </div>
+        <div class="badge-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <p style="margin-top: 1rem; color: #666;">${userId} has not selected a neutralization goal</p>
+        </div>
+        <div class="widget-footer">
+          <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
+            <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 6rem; height: auto; max-height: 2rem; width: auto;" />
+          </a>
+        </div>
+      </div>
+    `;
   }
 
   const sizeMap = {
