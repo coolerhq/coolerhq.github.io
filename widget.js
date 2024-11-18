@@ -661,7 +661,7 @@ function createEmptyStateHTML(userId) {
           <line x1="12" y1="16" x2="12" y2="12"></line>
           <line x1="12" y1="8" x2="12.01" y2="8"></line>
         </svg>
-        <p style="margin-top: 1rem; color: #666; text-align: center;">No emissions data found</p>
+        <p style="margin-top: 1rem; color: #666; text-align: center;">${userId} has no footprint yet</p>
       </div>
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
