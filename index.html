@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget Test</title>
+    <style>
+      /* Optional: Style the button */
+      #changeColorButton {
+        margin: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      #changeColorButton:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Manus Blog</h1>
+    <p>Some data here</p>
+    <button id="changeColorButton">Change Widget Colors</button>
+
+    <div style="height: 500px">
+      <div style="display: flex; gap: 2rem">
+        <div
+          class="widget-container-cooler"
+          data-primary-color="#545321"
+          data-widget-id="746ad731-79b9-4e69-8476-75e56d224f26"
+          data-size="sm"
+          data-borderless="false"
+          style="width: 400px; height: 400px"
+        ></div>
+        <div
+          class="widget-container-cooler"
+          data-widget-id="746ad731-79b9-4e69-8476-75e56d224f26"
+          data-size="md"
+          data-borderless="false"
+          style="width: 600px; height: 800px"
+        ></div>
+        <div
+          class="widget-container-cooler"
+          data-widget-id="746ad731-79b9-4e69-8476-75e56d224f26"
+          data-size="lg"
+          data-borderless="false"
+          style="width: 900px; height: 700px"
+          data-primary-color="#545321"
+        ></div>
+      </div>
+
+      <div style="display: flex; gap: 2rem">
+        <div
+          class="widget-container-cooler"
+          data-widget-id="f6cd7744-720e-4777-b7ee-922513081e5e"
+          data-borderless="false"
+          style="width: 400px; height: 400px"
+        ></div>
+        <div
+          class="widget-container-cooler"
+          data-widget-id="f6cd7744-720e-4777-b7ee-922513081e5e"
+          data-borderless="false"
+          style="width: 600px; height: 800px"
+        ></div>
+        <div
+          class="widget-container-cooler"
+          data-widget-id="f6cd7744-720e-4777-b7ee-922513081e5e"
+          data-borderless="false"
+          style="width: 900px; height: 700px"
+          data-primary-color="#545321"
+        ></div>
+      </div>
+
+      <div style="display: flex; gap: 2rem">
+        <div
+          class="widget-container-cooler"
+          data-widget-id="6376e555-9880-4600-9395-1227c5eaa8b5"
+          data-borderless="false"
+          style="width: 250px; height: 250px"
+          data-size="sm"
+        ></div>
+
+        <div
+          class="widget-container-cooler"
+          data-widget-id="6376e555-9880-4600-9395-1227c5eaa8b5"
+          data-borderless="false"
+          style="width: 600px; height: 800px"
+          data-size="md"
+        ></div>
+        <div
+          class="widget-container-cooler"
+          data-widget-id="6376e555-9880-4600-9395-1227c5eaa8b5"
+          data-borderless="false"
+          style="width: 900px; height: 700px"
+          data-size="lg"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Include your widget script -->
+    <script src="widget.js"></script>
+
+    <!-- Add the color change script -->
+    <script>
+      document
+        .getElementById("changeColorButton")
+        .addEventListener("click", () => {
+          // Define the new color you want to apply
+          const newColor = getRandomColor();
+
+          // Select all widget containers
+          const widgets = document.querySelectorAll(".widget-container-cooler");
+
+          widgets.forEach((widget) => {
+            // Update the data-primary-color attribute
+            widget.setAttribute("data-primary-color", newColor);
+          });
+        });
+
+      // Function to generate a random color in hex format
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+    </script>
+  </body>
+</html>

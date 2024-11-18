@@ -469,15 +469,21 @@
       );
       renderEquivalencies(data, widget, widgetConfig);
     } else if (type === "monthly_emissions") {
-      widget = createWidgetHTML(organization.name);
-      widget.id = `cooler-widget-${widgetCounter++}`;
+      if (!Array.isArray(data) || data.length === 0) {
+        widget = document.createElement("div");
+        widget.id = `cooler-widget-${widgetCounter++}`;
+        widget.innerHTML = createEmptyStateHTML(organization.name);
+      } else {
+        widget = createWidgetHTML(organization.name);
+        widget.id = `cooler-widget-${widgetCounter++}`;
 
-      // Initialize chart instance storage
-      widget.chartInstance = null;
+        // Initialize chart instance storage
+        widget.chartInstance = null;
 
-      loadChartJS(function (Chart) {
-        renderMonthlyEmissionsChart(Chart, widget, data, widgetConfig);
-      });
+        loadChartJS(function (Chart) {
+          renderMonthlyEmissionsChart(Chart, widget, data, widgetConfig);
+        });
+      }
     }
 
     return widget;
@@ -616,6 +622,29 @@ function createBadgeHTML(userId, percentage) {
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
           <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 6rem; height: auto; max-height: 2rem; width: auto;" />
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+function createEmptyStateHTML(userId) {
+  return `
+    <div class="widget-content">
+      <div id="main-tab" style="display: flex; justify-content: center; align-items: center;">
+        <h3 style="margin-top: .15rem; margin-bottom: .15rem; font-weight: 600; font-size: 1rem;">${userId}</h3>
+      </div>
+      <div class="chart-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <p style="margin-top: 1rem; color: #666; text-align: center;">No emissions data found</p>
+      </div>
+      <div class="widget-footer">
+        <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
+          <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" crossOrigin="anonymous" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
         </a>
       </div>
     </div>
