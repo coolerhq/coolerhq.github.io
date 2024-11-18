@@ -54,7 +54,7 @@
       </div>
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
-          <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" crossOrigin="anonymous" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
+          <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" crossOrigin="anonymous" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
         </a>
       </div>
     `;
@@ -79,7 +79,7 @@
       </div>
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
-          <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
+          <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
         </a>
       </div>
     `;
@@ -594,13 +594,13 @@
 function createBadgeHTML(userId, percentage) {
   let badgeImage;
   if (percentage >= 100) {
-    badgeImage = "https://m4nute.github.io/widget-cooler/assets/100.png";
+    badgeImage = "https://coolerhq.github.io/assets/100.png";
   } else if (percentage >= 75) {
-    badgeImage = "https://m4nute.github.io/widget-cooler/assets/75.png";
+    badgeImage = "https://coolerhq.github.io/assets/75.png";
   } else if (percentage >= 50) {
-    badgeImage = "https://m4nute.github.io/widget-cooler/assets/50.png";
+    badgeImage = "https://coolerhq.github.io/assets/50.png";
   } else if (percentage >= 25) {
-    badgeImage = "https://m4nute.github.io/widget-cooler/assets/25.png";
+    badgeImage = "https://coolerhq.github.io/assets/25.png";
   } else if (percentage === 0) {
     return `
       <div class="widget-content" style="background-color: #fff;">
@@ -617,7 +617,7 @@ function createBadgeHTML(userId, percentage) {
         </div>
         <div class="widget-footer">
           <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
-            <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 6rem; height: auto; max-height: 2rem; width: auto;" />
+            <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 6rem; height: auto; max-height: 2rem; width: auto;" />
           </a>
         </div>
       </div>
@@ -642,7 +642,7 @@ function createBadgeHTML(userId, percentage) {
       </div>
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
-          <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 6rem; height: auto; max-height: 2rem; width: auto;" />
+          <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 6rem; height: auto; max-height: 2rem; width: auto;" />
         </a>
       </div>
     </div>
@@ -665,7 +665,7 @@ function createEmptyStateHTML(userId) {
       </div>
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
-          <img id="footer-image" src="https://m4nute.github.io/widget-cooler/assets/cooler_logo_black.png" alt="Cooler Logo" crossOrigin="anonymous" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
+          <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" crossOrigin="anonymous" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
         </a>
       </div>
     </div>
