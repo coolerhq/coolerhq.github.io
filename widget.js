@@ -489,15 +489,17 @@
     return widget;
   }
 
+  function getApiBaseUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const isTesting = params.get("testing") === "true";
+    return isTesting
+      ? "https://cooler-api-staging-271548111588.us-central1.run.app"
+      : "https://api.cooler.dev";
+  }
+
   function fetchWidgetData(widgetId) {
-    return fetch(
-      `https://cooler-api-staging-271548111588.us-central1.run.app/v1/widgets/${widgetId}`,
-      {
-        headers: {
-          "COOLER-API-KEY": "cooler_test_407d603c-51c5-4e91-b56a-f976d6cf7494",
-        },
-      }
-    ).then((response) => {
+    const apiBaseUrl = getApiBaseUrl();
+    return fetch(`${apiBaseUrl}/v1/widgets/${widgetId}`).then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
