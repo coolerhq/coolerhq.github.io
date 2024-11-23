@@ -145,6 +145,21 @@
   }
 
   function applyStyles(widget, size = "md", widgetConfig) {
+    const resetStyles = {
+      all: "initial",
+      display: "block",
+      boxSizing: "border-box",
+      fontFamily: "Helvetica Neue, Arial, sans-serif",
+      lineHeight: "normal",
+      margin: "0",
+      padding: "0",
+      border: "none",
+      fontSize: "16px",
+      color: "inherit",
+    };
+
+    Object.assign(widget.style, resetStyles);
+
     const sizeConfig = {
       sm: 0.8,
       md: 1.0,
