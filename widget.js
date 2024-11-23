@@ -492,7 +492,7 @@
   function getApiBaseUrl(container) {
     const isTesting = container.getAttribute("data-testing") === "true";
     return isTesting
-      ? "https://cooler-api-staging-271548111588.us-central1.run.app"
+      ? "https://api-staging.cooler.dev"
       : "https://api.cooler.dev";
   }
 
