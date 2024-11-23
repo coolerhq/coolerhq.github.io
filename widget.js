@@ -88,8 +88,8 @@
   }
 
   function calculateEquivalents(footprintKg) {
-    // Convert kg to tons for calculations
-    const footprintTons = footprintKg / 1000;
+    // Convert kg to tons for calculations, default to 0 if NaN
+    const footprintTons = (footprintKg || 0) / 1000;
 
     // Constants in tons of CO2
     const CO2_PER_MILE_DRIVEN = 404 / 1000000; // 404 grams per mile
@@ -97,9 +97,10 @@
     const CO2_PER_SMARTPHONE_YEAR = 0.0088; // tons per year
 
     return {
-      milesDriven: Math.round(footprintTons / CO2_PER_MILE_DRIVEN),
-      laptopYears: Number((footprintTons / CO2_PER_LAPTOP_YEAR).toFixed(1)),
-      smartphoneYears: Math.round(footprintTons / CO2_PER_SMARTPHONE_YEAR),
+      milesDriven: Math.round(footprintTons / CO2_PER_MILE_DRIVEN) || 0,
+      laptopYears:
+        Number((footprintTons / CO2_PER_LAPTOP_YEAR).toFixed(1)) || 0,
+      smartphoneYears: Math.round(footprintTons / CO2_PER_SMARTPHONE_YEAR) || 0,
     };
   }
 
