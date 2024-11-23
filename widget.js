@@ -393,7 +393,7 @@
       };
 
       if (widgetId) {
-        fetchWidgetData(widgetId)
+        fetchWidgetData(widgetId, container)
           .then((widgetData) => {
             container.innerHTML = "";
             const newWidget = createWidget(
@@ -489,16 +489,15 @@
     return widget;
   }
 
-  function getApiBaseUrl() {
-    const params = new URLSearchParams(window.location.search);
-    const isTesting = params.get("testing") === "true";
+  function getApiBaseUrl(container) {
+    const isTesting = container.getAttribute("data-testing") === "true";
     return isTesting
       ? "https://cooler-api-staging-271548111588.us-central1.run.app"
       : "https://api.cooler.dev";
   }
 
-  function fetchWidgetData(widgetId) {
-    const apiBaseUrl = getApiBaseUrl();
+  function fetchWidgetData(widgetId, container) {
+    const apiBaseUrl = getApiBaseUrl(container);
     return fetch(`${apiBaseUrl}/v1/widgets/${widgetId}`).then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
