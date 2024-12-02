@@ -1,4 +1,4 @@
-(function () {
+(() => {
   (function (h, o, t, j, a, r) {
     h.hj =
       h.hj ||
@@ -72,7 +72,7 @@
             <div style="height: 23px; display: flex; flex-direction: column; justify-content: center;">
               <h2 style="margin: 0; height: 23px; font-weight: 700; font-size: 1.15rem; color: ${
                 widgetConfig.primaryColor
-              }; width: 100%;">${footprint || 0} kg CO2e</h2>
+              }; width: 100%;">${footprint || 0} tons CO2e</h2>
             </div>
             <p style="margin-top: 0; margin-bottom: 0.25rem; padding-bottom: 0.15rem; color: #666; font-size: .9rem; border-bottom: 1px solid #ccc; width: 100%;">Your footprint</p>
             <ul id="equivalencies-list"></ul>
@@ -87,10 +87,7 @@
     `;
   }
 
-  function calculateEquivalents(footprintKg) {
-    // Convert kg to tons for calculations, default to 0 if NaN
-    const footprintTons = (footprintKg || 0) / 1000;
-
+  function calculateEquivalents(footprintTons) {
     // Constants in tons of CO2
     const CO2_PER_MILE_DRIVEN = 404 / 1000000; // 404 grams per mile
     const CO2_PER_LAPTOP_YEAR = 0.168; // tons per year
@@ -99,8 +96,13 @@
     return {
       milesDriven: Math.round(footprintTons / CO2_PER_MILE_DRIVEN) || 0,
       laptopYears:
-        Number((footprintTons / CO2_PER_LAPTOP_YEAR).toFixed(1)) || 0,
-      smartphoneYears: Math.round(footprintTons / CO2_PER_SMARTPHONE_YEAR) || 0,
+        footprintTons / CO2_PER_LAPTOP_YEAR <= 1
+          ? Number((footprintTons / CO2_PER_LAPTOP_YEAR).toFixed(2))
+          : Math.round(footprintTons / CO2_PER_LAPTOP_YEAR) || 0,
+      smartphoneYears:
+        footprintTons / CO2_PER_SMARTPHONE_YEAR <= 1
+          ? Number((footprintTons / CO2_PER_SMARTPHONE_YEAR).toFixed(2))
+          : Math.round(footprintTons / CO2_PER_SMARTPHONE_YEAR) || 0,
     };
   }
 
@@ -111,7 +113,7 @@
     list.style.margin = "0";
 
     // Calculate equivalents based on footprint
-    const equivalents = calculateEquivalents(data.footprint);
+    const equivalents = calculateEquivalents(data?.footprint?.amount || 0);
 
     const equivalenciesData = [
       {
@@ -501,9 +503,10 @@
     if (type === "footprint_equivalencies") {
       widget = document.createElement("div");
       widget.id = `cooler-widget-${widgetCounter++}`;
+      console.log(data);
       widget.innerHTML = createEquivalenciesHTML(
         organization.name,
-        data.footprint,
+        data?.footprint?.amount || 0,
         widgetConfig
       );
       renderEquivalencies(data, widget, widgetConfig);
