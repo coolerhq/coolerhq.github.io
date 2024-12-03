@@ -72,7 +72,7 @@
             <div style="height: 23px; display: flex; flex-direction: column; justify-content: center;">
               <h2 style="margin: 0; height: 23px; font-weight: 700; font-size: 1.15rem; color: ${
                 widgetConfig.primaryColor
-              }; width: 100%;">${footprint || 0} tons CO₂e</h2>
+              }; width: 100%;">${footprint || 0} mt CO₂e</h2>
             </div>
             <p style="margin-top: 0; margin-bottom: 0.25rem; padding-bottom: 0.15rem; color: #666; font-size: .9rem; border-bottom: 1px solid #ccc; width: 100%;">Your footprint</p>
             <ul id="equivalencies-list"></ul>
