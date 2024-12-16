@@ -21,6 +21,8 @@
     headerTextColor: "#ffffff",
   };
 
+  const BLUR_CONTENT = true;
+
   const observers = new WeakMap(); // Store observers by container element
 
   function loadChartJS(callback) {
@@ -257,6 +259,80 @@
     footer.style.borderLeft = "2px solid #000";
     footer.style.borderRight = "2px solid #000";
     footer.style.flexShrink = "0"; // Prevent footer from shrinking
+
+    // Apply blur effect if enabled
+    if (BLUR_CONTENT) {
+      if (contentArea) {
+        // Create a wrapper for the content that needs to be blurred
+        const blurWrapper = document.createElement("div");
+        // Copy all styles from contentArea to blurWrapper
+        const contentStyles = window.getComputedStyle(contentArea);
+        Object.values(contentStyles).forEach((property) => {
+          if (property.startsWith("--")) return;
+          blurWrapper.style[property] = contentStyles[property];
+        });
+
+        // Move all content into the blur wrapper
+        while (contentArea.firstChild) {
+          blurWrapper.appendChild(contentArea.firstChild);
+        }
+
+        // Apply blur to wrapper
+        blurWrapper.style.filter = "blur(3px)";
+        blurWrapper.style.pointerEvents = "none"; // Disable interactions with content
+
+        // Create overlay to block interactions
+        const overlay = document.createElement("div");
+        overlay.style.position = "absolute";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.right = "0";
+        overlay.style.bottom = "0";
+        overlay.style.zIndex = "999";
+
+        // Reset and prepare contentArea as container
+        contentArea.style.position = "relative";
+        contentArea.style.display = "flex";
+        contentArea.style.alignItems = "center";
+        contentArea.style.justifyContent = "center";
+        contentArea.style.height = "100%";
+        contentArea.appendChild(blurWrapper);
+        contentArea.appendChild(overlay);
+
+        // Create and style upgrade button
+        const upgradeButton = document.createElement("button");
+        upgradeButton.textContent = "Upgrade";
+        upgradeButton.style.position = "absolute";
+        upgradeButton.style.left = "50%";
+        upgradeButton.style.top = "50%";
+        upgradeButton.style.transform = "translate(-50%, -50%)";
+        upgradeButton.style.backgroundColor = widgetConfig.primaryColor;
+        upgradeButton.style.color = "#ffffff";
+        upgradeButton.style.border = "none";
+        upgradeButton.style.padding = "10px 20px";
+        upgradeButton.style.borderRadius = "5px";
+        upgradeButton.style.cursor = "pointer";
+        upgradeButton.style.fontSize = "15px";
+        upgradeButton.style.fontWeight = "700";
+        upgradeButton.style.zIndex = "1000";
+        upgradeButton.style.transition = "background-color 200ms ease";
+
+        // Add hover effect
+        upgradeButton.addEventListener("mouseenter", () => {
+          upgradeButton.style.backgroundColor = `${widgetConfig.primaryColor}E6`; // 90% opacity
+        });
+
+        upgradeButton.addEventListener("mouseleave", () => {
+          upgradeButton.style.backgroundColor = widgetConfig.primaryColor;
+        });
+
+        upgradeButton.addEventListener("click", () => {
+          window.open("https://app.cooler.dev/billing", "_blank");
+        });
+
+        contentArea.appendChild(upgradeButton);
+      }
+    }
   }
 
   function renderChart(Chart, type, data, options, widget) {
