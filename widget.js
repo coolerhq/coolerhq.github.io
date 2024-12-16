@@ -327,7 +327,7 @@
         });
 
         upgradeButton.addEventListener("click", () => {
-          window.open("https://app.cooler.dev/billing", "_blank");
+          window.open("https://app.cooler.dev/settings/billing", "_blank");
         });
 
         contentArea.appendChild(upgradeButton);
