@@ -21,7 +21,7 @@
     headerTextColor: "#ffffff",
   };
 
-  const BLUR_CONTENT = true;
+  const BLUR_CONTENT = false;
 
   const observers = new WeakMap(); // Store observers by container element
 
