@@ -602,6 +602,15 @@
           renderMonthlyEmissionsChart(Chart, widget, data, widgetConfig);
         });
       }
+    } else if (type === "amount_neutralized") {
+      widget = document.createElement("div");
+      widget.id = `cooler-widget-${widgetCounter++}`;
+      widget.innerHTML = createNeutralizedHTML(
+        organization.name,
+        data.total_kg_neutralized.amount,
+        data.total_kg_footprinted.amount
+      );
+      return widget;
     }
 
     return widget;
@@ -785,6 +794,24 @@ function createEmptyStateHTML(userId) {
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
           <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" crossOrigin="anonymous" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+function createNeutralizedHTML(userId, neutralized, footprint) {
+  return `
+    <div class="widget-content" style="background-color: #fff;">
+      <div id="main-tab" style="display: flex; justify-content: center; align-items: center;">
+        <h3 style="margin: 0; margin-top: .15rem; margin-bottom: .15rem; font-weight: 600; font-size: 1rem;">${userId}</h3>
+      </div>
+      <div class="neutralized-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center;">
+        <h2 style="margin: 0; font-weight: 700; font-size: 1.5rem;">${neutralized}kg CO₂ neutralized</h2>
+      </div>
+      <div class="widget-footer">
+        <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
+          <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
         </a>
       </div>
     </div>
