@@ -801,13 +801,19 @@ function createEmptyStateHTML(userId) {
 }
 
 function createNeutralizedHTML(userId, neutralized, footprint) {
+  // Convert kg to metric tons
+  const metricTons = (neutralized / 1000).toFixed(0);
+
   return `
     <div class="widget-content" style="background-color: #fff;">
       <div id="main-tab" style="display: flex; justify-content: center; align-items: center;">
         <h3 style="margin: 0; margin-top: .15rem; margin-bottom: .15rem; font-weight: 600; font-size: 1rem;">${userId}</h3>
       </div>
-      <div class="neutralized-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center;">
-        <h2 style="margin: 0; font-weight: 700; font-size: 1.5rem;">${neutralized}kg CO₂ neutralized</h2>
+      <div class="neutralized-container" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 2rem 3rem; text-align: left;">
+        <span style="font-size: 4rem; font-weight: 700; line-height: 1;">${metricTons}</span>
+        <span style="font-size: 1.2rem; color: #666; margin-top: 0.5rem;">metric tons CO₂</span>
+        <span style="font-size: 1.2rem; color: #666;">Emissions Neutralized</span>
+        <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="width: 120px; height: auto; margin-top: 1.5rem;" />
       </div>
       <div class="widget-footer">
         <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
