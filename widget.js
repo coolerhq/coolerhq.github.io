@@ -809,8 +809,8 @@ function createNeutralizedHTML(userId, neutralized, footprint) {
       <div class="neutralized-container" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; color: #2578C2; padding: 1rem 0;">
         <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
           <div style="display: flex; align-items: center;">
-            <span style="font-size: 4.5rem; font-weight: 700; line-height: 1">${neutralized}</span>
-            <span style="font-size: 1.4rem; font-weight: 700; margin-top: auto; margin-bottom: 0.25rem;">mt CO<sup>2</sup></span>
+            <span style="font-size: 4.5rem; line-height: 1">${neutralized}</span>
+            <span style="font-size: 1.4rem; margin-top: auto; margin-bottom: 0.25rem;">mt CO<sup>2</sup></span>
           </div>
           <span style="font-size: 1rem; color: #666;">Emissions Neutralized</span>
         </div>
