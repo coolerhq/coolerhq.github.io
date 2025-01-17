@@ -802,22 +802,19 @@ function createEmptyStateHTML(userId) {
 
 function createNeutralizedHTML(userId, neutralized, footprint) {
   return `
-    <div class="widget-content" style="background-color: #fff;">
+    <div class="widget-content" style="background-color: #fff; display: flex; flex-direction: column; height: 100%;">
       <div id="main-tab" style="display: flex; justify-content: center; align-items: center;">
         <h3 style="margin: 0; margin-top: .15rem; margin-bottom: .15rem; font-weight: 600; font-size: 1rem;">${userId}</h3>
       </div>
-      <div class="neutralized-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: #2578C2;">
-        <div style="display: flex; align-items: center;">
-          <span style="font-size: 4rem; font-weight: 700; line-height: 1">${neutralized}</span>
-          <span style="font-size: 1.2rem; font-weight: 700; margin-top: auto; margin-bottom: 0.25rem;">mt CO<sup>2</sup></span>
+      <div class="neutralized-container" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; color: #2578C2; padding: 1rem 0;">
+        <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+          <div style="display: flex; align-items: center;">
+            <span style="font-size: 4.5rem; font-weight: 700; line-height: 1">${neutralized}</span>
+            <span style="font-size: 1.4rem; font-weight: 700; margin-top: auto; margin-bottom: 0.25rem;">mt CO<sup>2</sup></span>
+          </div>
+          <span style="font-size: 1rem; color: #666;">Emissions Neutralized</span>
         </div>
-        <span style="font-size: 1.2rem; color: #666;">Emissions Neutralized</span>
-        <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="width: 180px; height: auto; margin-top: .75rem;" />
-      </div>
-      <div class="widget-footer">
-        <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
-          <img id="footer-image" src="https://coolerhq.github.io/assets/cooler_logo_black.png" alt="Cooler Logo" style="max-width: 10rem; height: auto; max-height: 2rem; width: auto;" />
-        </a>
+        <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="width: 180px; height: auto;" />
       </div>
     </div>
   `;
