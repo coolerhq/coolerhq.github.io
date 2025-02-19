@@ -812,7 +812,7 @@ function createNeutralizedHTML(userId, neutralized, footprint) {
             <span style="font-size: 4.5rem; line-height: 1">${neutralized}</span>
             <span style="font-size: 1.4rem; margin-top: auto; margin-bottom: 0.25rem;">mt CO<sup>2</sup></span>
           </div>
-          <span style="font-size: 1rem; color: #666;">Emissions Neutralized</span>
+          <span style="font-size: 1rem; color: #666;">Emissions to be Neutralized</span>
         </div>
         <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="width: 160px; height: auto;" />
       </div>
