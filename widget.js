@@ -90,22 +90,38 @@
   }
 
   function calculateEquivalents(footprintTons) {
-    // Constants in tons of CO2
-    const CO2_PER_MILE_DRIVEN = 404 / 1000000; // 404 grams per mile
-    const CO2_PER_LAPTOP_YEAR = 0.168; // tons per year
-    const CO2_PER_SMARTPHONE_YEAR = 0.0088; // tons per year
+    const equivalenciesData = [
+      {
+        text: "Taking about {x} gas {x|car|cars} off the road for a year.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>`,
+        factor: 8.89 * 489,
+      },
+      {
+        text: "Power used by {x} {x|home|homes} for a year.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        factor: 7500,
+      },
+      {
+        text: "CO₂ absorbed by about {x} {x|acre|acres} of forests per year.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 19h8a4 4 0 0 0 3.8-2.8 4 4 0 0 0-1.6-4.5c1-1.1 1-2.7 0-3.8-.7-.7-1.7-1-2.7-.7a4 4 0 0 0-7 3 4 4 0 0 0-2.3 3.7A4 4 0 0 0 8 19Z"/></svg>`,
+        factor: 980,
+      },
+    ];
 
-    return {
-      milesDriven: Math.round(footprintTons / CO2_PER_MILE_DRIVEN) || 0,
-      laptopYears:
-        footprintTons / CO2_PER_LAPTOP_YEAR <= 1
-          ? Number((footprintTons / CO2_PER_LAPTOP_YEAR).toFixed(2))
-          : Math.round(footprintTons / CO2_PER_LAPTOP_YEAR) || 0,
-      smartphoneYears:
-        footprintTons / CO2_PER_SMARTPHONE_YEAR <= 1
-          ? Number((footprintTons / CO2_PER_SMARTPHONE_YEAR).toFixed(2))
-          : Math.round(footprintTons / CO2_PER_SMARTPHONE_YEAR) || 0,
-    };
+    // Convert metric tons to kilograms for calculation
+    const carbonFootprintKg = footprintTons * 1000;
+
+    return equivalenciesData.map(({ text, icon, factor }) => {
+      const value = Math.round(carbonFootprintKg / factor);
+      const pluralizedText = text.replace(
+        /\{x\|([^|]+)\|([^}]+)\}/g,
+        (_, singular, plural) => (value === 1 ? singular : plural)
+      );
+      return {
+        icon,
+        text: pluralizedText.replace(/\{x\}/g, value),
+      };
+    });
   }
 
   function renderEquivalencies(data, widget, widgetConfig) {
@@ -117,30 +133,17 @@
     // Calculate equivalents based on footprint
     const equivalents = calculateEquivalents(data?.footprint?.amount || 0);
 
-    const equivalenciesData = [
-      {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${widgetConfig.primaryColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>`,
-        value: `${equivalents.milesDriven.toLocaleString()} miles driven`,
-      },
-      {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${widgetConfig.primaryColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-laptop"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>`,
-        value: `${equivalents.laptopYears} years of laptop use`,
-      },
-      {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${widgetConfig.primaryColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>`,
-        value: `${equivalents.smartphoneYears.toLocaleString()} years of smartphone charging`,
-      },
-    ];
-
-    equivalenciesData.forEach((item) => {
+    equivalents.forEach((item) => {
       const li = document.createElement("li");
       li.innerHTML = `
         <div style="display: flex; align-items: center; margin-top: 0.25rem; margin-bottom: 0.5rem;">
-          <div style="background-color: ${widgetConfig.primaryColor}33; border-radius: 8px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; min-width: 28px; min-height: 28px;">
-            ${item.icon}
+          <div style="background-color: ${
+            widgetConfig.primaryColor
+          }33; border-radius: 8px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; min-width: 28px; min-height: 28px;">
+            ${item.icon.replace("currentColor", widgetConfig.primaryColor)}
           </div>
           <div style="margin-left: 5px;">
-            <span style="color: #333; font-size: 0.805rem;">${item.value}</span>
+            <span style="color: #333; font-size: 0.805rem;">${item.text}</span>
           </div>
         </div>
       `;
