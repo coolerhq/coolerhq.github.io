@@ -724,13 +724,16 @@
 
 function createBadgeHTML(userId, percentage) {
   let badgeImage;
-  if (percentage >= 100) {
+  // Round down to nearest step of 25
+  const roundedPercentage = Math.floor(percentage / 25) * 25;
+
+  if (roundedPercentage >= 100) {
     badgeImage = "https://coolerhq.github.io/assets/100.png";
-  } else if (percentage >= 75) {
+  } else if (roundedPercentage >= 75) {
     badgeImage = "https://coolerhq.github.io/assets/75.png";
-  } else if (percentage >= 50) {
+  } else if (roundedPercentage >= 50) {
     badgeImage = "https://coolerhq.github.io/assets/50.png";
-  } else if (percentage >= 25) {
+  } else if (roundedPercentage >= 25) {
     badgeImage = "https://coolerhq.github.io/assets/25.png";
   } else if (percentage > 0) {
     return `
@@ -745,7 +748,6 @@ function createBadgeHTML(userId, percentage) {
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
           </svg>
           <p style="margin-top: 1rem; color: #666; text-align: center;">To get a Cooler Certified badge, neutralize 25% or more of your total emissions</p>
-         
         </div>
         <div class="widget-footer">
           <a href="https://cooler.dev" target="_blank" rel="noopener noreferrer">
