@@ -167,6 +167,31 @@
 
     Object.assign(widget.style, resetStyles);
 
+    // Apply comprehensive font-size reset to all text elements within the widget
+    const style = document.createElement("style");
+    const widgetId = widget.id || `cooler-widget-${Date.now()}`;
+    if (!widget.id) widget.id = widgetId;
+
+    style.textContent = `
+      #${widgetId} {
+        font-size: 16px !important;
+        font-family: 'Helvetica Neue', Arial, sans-serif !important;
+      }
+      #${widgetId} * {
+        font-family: inherit !important;
+      }
+      #${widgetId} h1, #${widgetId} h2, #${widgetId} h3, #${widgetId} h4, #${widgetId} h5, #${widgetId} h6 {
+        font-size: inherit !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      #${widgetId} p, #${widgetId} span, #${widgetId} div {
+        font-size: inherit !important;
+      }
+    `;
+
+    document.head.appendChild(style);
+
     const sizeConfig = {
       sm: 0.8,
       md: 1.0,
@@ -613,6 +638,20 @@
         data.total_kg_neutralized.amount,
         data.total_kg_footprinted.amount
       );
+
+      // Apply font-size consistency for neutralized widget
+      const style = document.createElement("style");
+      style.textContent = `
+        #${widget.id} {
+          font-size: 16px !important;
+          font-family: 'Helvetica Neue', Arial, sans-serif !important;
+        }
+        #${widget.id} * {
+          font-family: inherit !important;
+        }
+      `;
+      document.head.appendChild(style);
+
       return widget;
     }
 
@@ -829,17 +868,17 @@ function createEmptyStateHTML(userId) {
 
 function createNeutralizedHTML(userId, neutralized, footprint) {
   return `
-    <div class="widget-content" style="background-color: #ffffff; display: flex; flex-direction: column; height: 100%; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); position: relative;">
+    <div class="widget-content" style="background-color: #ffffff; display: flex; flex-direction: column; height: 100%; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); position: relative; font-size: 16px; font-family: 'Helvetica Neue', Arial, sans-serif;">
       <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="position: absolute; top: 12px; right: 12px; width: clamp(90px, 35vw, 130px); height: auto; z-index: 10;" />
       <div class="neutralized-container" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: min(2rem, 4vw) min(1rem, 3vw) min(1.5rem, 3vw); padding-bottom: min(2rem, 5vw);">
         <div style="display: flex; align-items: baseline; justify-content: center; margin-bottom: min(1rem, 2vw);">
-          <span style="font-size: 4rem; font-weight: 300; line-height: 1; color: #2d3748; font-family: 'Satoshi-Light', -apple-system, BlinkMacSystemFont, sans-serif;">${neutralized}</span>
-          <span style="font-size: 1.25rem; margin-left: 0.5rem; color: #2d3748; font-weight: 400;">mt CO<sup>2</sup></span>
+          <span class="neutralized-main-number" style="font-size: 64px !important; font-weight: 300; line-height: 1; color: #2d3748; font-family: 'Satoshi-Light', -apple-system, BlinkMacSystemFont, sans-serif;">${neutralized}</span>
+          <span class="neutralized-unit" style="font-size: 20px !important; margin-left: 0.5rem; color: #2d3748; font-weight: 400;">mt CO<sup>2</sup></span>
         </div>
         <div style="height: 1px; background-color: #e2e8f0; width: 80%; margin-bottom: min(1rem, 2vw);"></div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: min(0.25rem, 1vw);">
-          <span style="font-size: 1rem; color: #718096; font-weight: 400; letter-spacing: 0.025em;">Emissions to be Neutralized</span>
-          <span style="font-size: 1rem; color: #4a5568; font-weight: 500; font-family: 'Satoshi-Medium', -apple-system, BlinkMacSystemFont, sans-serif;">${userId}</span>
+          <span class="neutralized-desc" style="font-size: 16px !important; color: #718096; font-weight: 400; letter-spacing: 0.025em;">Emissions to be Neutralized</span>
+          <span class="neutralized-name" style="font-size: 16px !important; color: #4a5568; font-weight: 500; font-family: 'Satoshi-Medium', -apple-system, BlinkMacSystemFont, sans-serif;">${userId}</span>
         </div>
       </div>
     </div>
