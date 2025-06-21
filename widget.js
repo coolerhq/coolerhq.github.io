@@ -829,19 +829,18 @@ function createEmptyStateHTML(userId) {
 
 function createNeutralizedHTML(userId, neutralized, footprint) {
   return `
-    <div class="widget-content" style="background-color: #fff; display: flex; flex-direction: column; height: 100%;">
-      <div id="main-tab" style="display: flex; justify-content: center; align-items: center;">
-        <h3 style="margin: 0; margin-top: .15rem; margin-bottom: .15rem; font-weight: 600; font-size: 1rem;">${userId}</h3>
-      </div>
-      <div class="neutralized-container" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; color: #2578C2; padding: 1rem 0;">
-        <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-          <div style="display: flex; align-items: center;">
-            <span style="font-size: 4.5rem; line-height: 1">${neutralized}</span>
-            <span style="font-size: 1.4rem; margin-top: auto; margin-bottom: 0.25rem;">mt CO<sup>2</sup></span>
-          </div>
-          <span style="font-size: 1rem; color: #666;">Emissions to be Neutralized</span>
+    <div class="widget-content" style="background-color: #ffffff; display: flex; flex-direction: column; height: 100%; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); position: relative;">
+      <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="position: absolute; top: 12px; right: 12px; width: clamp(90px, 35vw, 130px); height: auto; z-index: 10;" />
+      <div class="neutralized-container" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: min(2rem, 4vw) min(1rem, 3vw) min(1.5rem, 3vw); padding-bottom: min(2rem, 5vw);">
+        <div style="display: flex; align-items: baseline; justify-content: center; margin-bottom: min(1rem, 2vw);">
+          <span style="font-size: 4rem; font-weight: 300; line-height: 1; color: #2d3748; font-family: 'Satoshi-Light', -apple-system, BlinkMacSystemFont, sans-serif;">${neutralized}</span>
+          <span style="font-size: 1.25rem; margin-left: 0.5rem; color: #2d3748; font-weight: 400;">mt CO<sup>2</sup></span>
         </div>
-        <img src="https://coolerhq.github.io/assets/cooler_certified.png" alt="Cooler Certified" style="width: 160px; height: auto;" />
+        <div style="height: 1px; background-color: #e2e8f0; width: 80%; margin-bottom: min(1rem, 2vw);"></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: min(0.25rem, 1vw);">
+          <span style="font-size: 1rem; color: #718096; font-weight: 400; letter-spacing: 0.025em;">Emissions to be Neutralized</span>
+          <span style="font-size: 1rem; color: #4a5568; font-weight: 500; font-family: 'Satoshi-Medium', -apple-system, BlinkMacSystemFont, sans-serif;">${userId}</span>
+        </div>
       </div>
     </div>
   `;
